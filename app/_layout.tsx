@@ -1,3 +1,4 @@
+import { AppProvider } from '@/context/context';
 import { Ionicons } from '@expo/vector-icons';
 import { useFonts } from 'expo-font';
 import { Stack, router } from 'expo-router';
@@ -44,19 +45,21 @@ export default function RootLayout() {
 
 function RootLayoutNav() {
   return (
-    <Stack>
-      <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
-      <Stack.Screen
-        name='(modals)/login'
-        options={{
-          presentation: 'modal',
-          title: 'Log in or Sign up',
-          headerTitleStyle: { fontFamily: 'mon-sb' },
-          headerLeft: () => (
-            <Ionicons name='close' size={28} onPress={router.back} />
-          ),
-        }}
-      />
-    </Stack>
+    <AppProvider>
+      <Stack>
+        <Stack.Screen name='(tabs)' options={{ headerShown: false }} />
+        <Stack.Screen
+          name='(modals)/auth'
+          options={{
+            presentation: 'modal',
+            title: 'Log in or Sign up',
+            headerTitleStyle: { fontFamily: 'mon-sb' },
+            headerLeft: () => (
+              <Ionicons name='close' size={28} onPress={router.back} />
+            ),
+          }}
+        />
+      </Stack>
+    </AppProvider>
   );
 }

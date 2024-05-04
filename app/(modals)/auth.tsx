@@ -6,11 +6,16 @@ import {
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React from 'react';
+import React, { useState } from 'react';
 import defaultStyles from '@/constants/styles';
 import { Ionicons } from '@expo/vector-icons';
 
+import { useGlobalContext } from '@/context/context';
+
 const Page = () => {
+  const { email, password, handleSignUp, setEmail, setPassword }: any =
+    useGlobalContext();
+
   return (
     <ScrollView style={{ backgroundColor: '#fff' }}>
       <View style={defaultStyles.container}>
@@ -20,9 +25,22 @@ const Page = () => {
           placeholder='Email'
           placeholderTextColor='#ABABAB'
           keyboardType='email-address'
+          value={email}
+          onChangeText={setEmail}
         />
 
-        <TouchableOpacity style={defaultStyles.button}>
+        <TextInput
+          style={defaultStyles.input}
+          autoCapitalize='none'
+          placeholder='Password'
+          placeholderTextColor='#ABABAB'
+          keyboardType='visible-password'
+          value={password}
+          onChangeText={setPassword}
+          secureTextEntry
+        />
+
+        <TouchableOpacity style={defaultStyles.button} onPress={handleSignUp}>
           <Text style={defaultStyles.buttonText}>Continue</Text>
         </TouchableOpacity>
 
