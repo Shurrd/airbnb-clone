@@ -2,47 +2,46 @@ import {
   View,
   Text,
   StyleSheet,
-  TextInput,
   TouchableOpacity,
   ScrollView,
 } from 'react-native';
-import React, { useState } from 'react';
+import React from 'react';
 import defaultStyles from '@/constants/styles';
 import { Ionicons } from '@expo/vector-icons';
 
 import { useGlobalContext } from '@/context/context';
+import { GlobalContext } from '@/types/types';
+import InputField from '@/components/InputField';
+import Button from '@/components/Button';
 
 const Page = () => {
-  const { email, password, handleSignUp, setEmail, setPassword }: any =
-    useGlobalContext();
+  const {
+    email,
+    password,
+    handleEmailAuth,
+    setEmail,
+    setPassword,
+  }: GlobalContext = useGlobalContext();
 
   return (
     <ScrollView style={{ backgroundColor: '#fff' }}>
       <View style={defaultStyles.container}>
-        <TextInput
-          style={defaultStyles.input}
-          autoCapitalize='none'
-          placeholder='Email'
-          placeholderTextColor='#ABABAB'
-          keyboardType='email-address'
+        <InputField
           value={email}
+          keyboardType='email-address'
           onChangeText={setEmail}
+          placeholder='Email'
         />
 
-        <TextInput
-          style={defaultStyles.input}
-          autoCapitalize='none'
-          placeholder='Password'
-          placeholderTextColor='#ABABAB'
-          keyboardType='visible-password'
+        <InputField
           value={password}
+          keyboardType='default'
           onChangeText={setPassword}
+          placeholder='Password'
           secureTextEntry
         />
 
-        <TouchableOpacity style={defaultStyles.button} onPress={handleSignUp}>
-          <Text style={defaultStyles.buttonText}>Continue</Text>
-        </TouchableOpacity>
+        <Button text='Continue' onPress={handleEmailAuth} />
 
         <View style={styles.separatorView}>
           <View

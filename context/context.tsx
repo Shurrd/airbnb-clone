@@ -1,6 +1,6 @@
 'use client';
 
-import React, { FormEvent, useContext, useState } from 'react';
+import React, { FormEvent, ReactNode, useContext, useState } from 'react';
 
 import {
   createUserWithEmailAndPassword,
@@ -13,20 +13,22 @@ import { auth } from '@/lib/firebase';
 
 const AppContext = React.createContext({});
 
-const AppProvider = ({ children }: any) => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
+interface AppProviderProps {
+  children: ReactNode;
+}
+
+const AppProvider: React.FC<AppProviderProps> = ({ children }) => {
+  const [email, setEmail] = useState<string>('');
+  const [password, setPassword] = useState<string>('');
 
   //   Handle Sign Up
 
-  const handleSignUp = async () => {
-    try {
-      const res = await createUserWithEmailAndPassword(auth, email, password);
-      console.log({ res });
-    } catch (error) {
-      console.log(error);
-    }
+  const handleEmailAuth = async () => {
+    const res = await createUserWithEmailAndPassword(auth, email, password);
+    console.log({ res });
   };
+
+  // Handle Sign In
 
   return (
     <AppContext.Provider
@@ -35,7 +37,7 @@ const AppProvider = ({ children }: any) => {
         password,
         setEmail,
         setPassword,
-        handleSignUp,
+        handleEmailAuth,
       }}
     >
       {children}
